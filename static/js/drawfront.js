@@ -5,7 +5,7 @@ var imgcnvs=document.getElementById("imageCanvas");
 var imgctx= imgcnvs.getContext("2d");
 //image
 const wmap = new Image();
-wmap.src="./static/images/map850hPa/weathermap.jpg";
+wmap.src="./static/images/map850hPa/202302110000_850hPa_theta_wind.jpg";
 wmap.onload = () => {
   imgctx.drawImage(wmap,0,0); //先に画像を読み込まないとダメ
 };
