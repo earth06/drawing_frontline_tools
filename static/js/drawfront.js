@@ -185,7 +185,7 @@ function calcWarmControllPoint(xs,xe, ys,ye){
 
   var xm=(xs + xe + factx*Math.abs(dy)*1.5)/2;
   var ym=(ys + ye + facty*Math.abs(dx)*1.5)/2;
-  var symbol=`L ${xs} ${ys} C ${xs} ${ys} ${xm} ${ym} ${xe} ${ye} L ${xe} ${ye} `;
+  var symbol=`L ${xs} ${ys} Q ${xm} ${ym} ${xe} ${ye} L ${xe} ${ye} `;
   return symbol
 
 }
