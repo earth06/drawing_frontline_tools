@@ -37,6 +37,7 @@ document.getElementById("warm").addEventListener(
 
 document.getElementById("occulus").addEventListener(
   "click",function(){
+    is_warm_mode=true;
     linecolor="purple";
     current_fronttype="occulus";
   }
@@ -135,8 +136,17 @@ canvas.on('before:path:created', function(opt) {
         }
         else if (current_fronttype=="warm"){
           frontpath=frontpath + calcWarmControllPoint(xs,xe, ys,ye);
+        } 
+        else if (current_fronttype=="occulus"){
+          if (is_warm_mode){ 
+            frontpath=frontpath + calcWarmControllPoint(xs, xe, ys, ye);
+            is_warm_mode=false;
+          } else {
+            frontpath=frontpath + calcColdControllPoint(xs,xe,ys,ye);
+            is_warm_mode=true;
+          }
+          
         }
-        
         is_bezier_mode=false;
         cum_l=0;
       }
@@ -183,8 +193,8 @@ function calcWarmControllPoint(xs,xe, ys,ye){
     var facty=1;
   }
 
-  var xm=(xs + xe + factx*Math.abs(dy)*1.5)/2;
-  var ym=(ys + ye + facty*Math.abs(dx)*1.5)/2;
+  var xm=(xs + xe + factx*Math.abs(dy)*2)/2;
+  var ym=(ys + ye + facty*Math.abs(dx)*2)/2;
   var symbol=`L ${xs} ${ys} Q ${xm} ${ym} ${xe} ${ye} L ${xe} ${ye} `;
   return symbol
 
