@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<head>
+    <link rel="stylesheet" href="./static/css/design.css">
+    
+</head>
+<body>
+
+    <canvas id="imageCanvas" width="652" height="502" style="top: 0px; right: 0;bottom: 0; left: 0; margin:0 0; position: absolute; border: solid 1px white;box-sizing: border-box;"></canvas>
+    <canvas id="frontlinecanvas" width="652" height="502" style="top: 0px; right: 0;bottom: 0; left: 0; margin:0 0; position: absolute; border: solid 1px white;box-sizing: border-box;"></canvas>
+    <div class="option">
+        <div class="color">
+            前線種:
+            <a href="#blue" id="cold" class="front_type">寒冷前線</a>
+            <a href="#red" id="warm" class="front_type">温暖前線</a>
+            <a href="#purple" id="occulus" class="front_type">閉塞前線</a>
+            <a href="#purple" id="stable" class="front_type">停滞前線</a>
+        </div>
+    </div>
+    <input type="button" value="clear" id='clear-canvas'>
+    <a id="download_btn" href="#download" class="btn">ダウンロード</a>
+    <div id="result"><img src=""></div>
+    <script src="./static/js/fabric.js"></script>
+    <script src="./static/js/weatherfrontbrush.js"></script>
+    <script src="./static/js/drawfront_main.js"></script>
+
+</body>
