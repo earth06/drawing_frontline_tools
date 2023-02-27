@@ -11,6 +11,28 @@
 
   }
 
+  .canvas-container{
+    position: relative;
+    padding: 0;
+    box-sizing: content-box;
+    width: 600px;
+  }
+  .canvas-container:before{
+    content:"";
+    display: block;
+    padding-top: 0;
+  }
+
+  .mycanvas{
+    position: absolute;
+    left:0;
+    top:0;
+    border:0;
+    border: solid 1px black;
+
+
+  }
+
   #stable{
     background-color: rgb(214, 53, 214);
     color: white;
