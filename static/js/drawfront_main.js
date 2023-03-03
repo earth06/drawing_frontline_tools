@@ -85,6 +85,8 @@ canvas.on('before:path:created', function(opt) {
   var patharr= path.path;
   var pathInfo = fabric.util.getPathSegmentsInfo(path.path);
   path.segmentsInfo = pathInfo;
+  //path interpolate
+  patharr=makehighresolution(patharr)
 
   if (current_fronttype=="cold"){
     drawColdFront(patharr,canvas);

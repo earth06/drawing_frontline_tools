@@ -1,7 +1,7 @@
 
 function drawColdFront(patharr, canvas){
-  var x0=patharr[0][1];
-  var y0=patharr[0][2];
+  var x0=patharr[0][00];
+  var y0=patharr[0][1];
   var frontpath =`M ${x0} ${y0} L ${x0} ${y0} `;
   var delta_L= 15;
   var dl=0;
@@ -12,9 +12,8 @@ function drawColdFront(patharr, canvas){
   var interval=`L `;
   var is_bezier_mode=true;
   for (i=1;i<= patharr.length-1; i++){
-    console.log(i)
-    x2=patharr[i][3];
-    y2=patharr[i][4];
+    x2=patharr[i][0];
+    y2=patharr[i][1];
     
     dl = Math.sqrt((x2-xs)**2 + (y2-ys)**2);
     //線分モードのときに線分を追加
@@ -43,8 +42,8 @@ function drawColdFront(patharr, canvas){
 }
 
 function drawWarmFront(patharr, canvas){
-  var x0=patharr[0][1];
-  var y0=patharr[0][2];
+  var x0=patharr[0][0];
+  var y0=patharr[0][1];
   var frontpath =`M ${x0} ${y0} L ${x0} ${y0} `;
   var delta_L= 20;
   var dl=0;
@@ -55,9 +54,8 @@ function drawWarmFront(patharr, canvas){
   var interval=`L `;
   var is_bezier_mode=true;
   for (i=1;i<= patharr.length-1; i++){
-    console.log(i)
-    x2=patharr[i][3];
-    y2=patharr[i][4];
+    x2=patharr[i][0];
+    y2=patharr[i][1];
     
     //線分モードのときに線分を追加
     dl = Math.sqrt((x2-xs)**2 + (y2-ys)**2);
@@ -85,8 +83,8 @@ function drawWarmFront(patharr, canvas){
 }
 
 function drawStationaryFront(patharr, canvas){
-  var x0=patharr[0][1];
-  var y0=patharr[0][2];
+  var x0=patharr[0][0];
+  var y0=patharr[0][1];
   var frontpath =`M ${x0} ${y0} L ${x0} ${y0} `;
   var delta_L= 15;
   var xs=x0;
@@ -101,14 +99,12 @@ function drawStationaryFront(patharr, canvas){
   var d1=0;
 
   for (i=1;i<= patharr.length-1; i++){
-    x2=patharr[i][3];
-    y2=patharr[i][4];
+    x2=patharr[i][0];
+    y2=patharr[i][1];
     r_base_line = `${x2} ${y2} ` + r_base_line    
-    console.log(i)
     d1=Math.sqrt((x2-xs)**2 + (y2-ys)**2)
     cursor += `${x2} ${y2} `    
     if (is_cold_side){
-      console.log("cold mode")
       //寒冷前線モード
 
       if (d1 >= delta_L){
@@ -143,7 +139,6 @@ function drawStationaryFront(patharr, canvas){
     }else{
       //温暖前線モード
       cursor_for_warm += `${x2} ${y2} ` 
-      console.log("warm mode")
       if (d1 >= delta_L){
         if (is_bezier_mode){
           xe=x2;
@@ -176,8 +171,8 @@ function drawStationaryFront(patharr, canvas){
   return 
 }
 function drawOccludedFront(patharr, canvas){
-  var x0=patharr[0][1];
-  var y0=patharr[0][2];
+  var x0=patharr[0][0];
+  var y0=patharr[0][1];
   var frontpath =`M ${x0} ${y0} L ${x0} ${y0} `;
   var delta_L= 15;
   var dl=0;
@@ -189,9 +184,8 @@ function drawOccludedFront(patharr, canvas){
   var is_bezier_mode=true;
   var is_warm_mode=true;
   for (i=1;i<= patharr.length-1; i++){
-    console.log(i)
-    x2=patharr[i][3];
-    y2=patharr[i][4];
+    x2=patharr[i][0];
+    y2=patharr[i][1];
     //線分を求める
     dl = Math.sqrt((x2-xs)**2 + (y2-ys)**2);
     //線分モードのときに線分を追加
@@ -233,8 +227,8 @@ function add_baseline(patharr, frontpath){
   var by;
   var base_line=`L `;
   for (i=patharr.length-2, i>=1; i--;){
-    bx=patharr[i][3];
-    by=patharr[i][4];
+    bx=patharr[i][0];
+    by=patharr[i][1];
     base_line += `${bx} ${by} `;
   }
   frontpath += base_line + `z`;
@@ -326,4 +320,40 @@ function calcColdControllPoint(xs,xe, ys, ye){
   var symbol=`L ${xs} ${ys} C ${x_ctl1} ${y_ctl1} ${x_ctl2} ${y_ctl2} ${xe} ${ye} L ${xe} ${ye} `;
   return symbol
 
+}
+
+function makehighresolution(patharr){
+  var dl=0;
+  var x=0;
+  var y=0;
+  var x_prev=0;
+  var y_prev=0;
+  var interp_x=0;
+  var interp_y=0;
+  var interparr=[[patharr[0][1],patharr[0][2]]];
+  var DLMIN=15;
+  var resol=DLMIN/5
+
+  for (i=1;i<patharr.length-1;i++){
+      x=patharr[i][3];
+      y=patharr[i][4];
+      x_prev=patharr[i-1][3]
+      y_prev=patharr[i-1][4]
+      dl=Math.sqrt((x-x_prev)**2 +(y-y_prev)**2)
+      //DLMAX/10よりも小さいときはそのまま追加
+      if (dl <= resol){
+          interparr.push([x,y])
+      }else{
+          NDIM=Math.trunc( dl /resol)
+          delta_k=1.0/NDIM
+          //ここで得た個数分線形補完してpushする
+          for (j=0;j<=NDIM;j++){
+              interp_x=(x_prev + (j+1)*(delta_k)*( x-x_prev))
+              interp_y=(y_prev + (j+1)*(delta_k)*( y-y_prev))
+              interparr.push([interp_x, interp_y])
+          }
+          interparr.push([x,y])
+      }
+  }
+  return interparr
 }
