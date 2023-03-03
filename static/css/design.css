@@ -3,12 +3,12 @@
   }
   .front_type {
     display: inline-block;
-    width: 80px;
+    width: 100px;
     height: 30px;
     text-align: center;
     font-weight: bold;
     margin: 0 auto;
-
+    border: solid 3px grey;
   }
 
   .canvas-container{
@@ -34,19 +34,19 @@
   }
 
   #stable{
-    background-color: rgb(214, 53, 214);
+    background-color: rgb(255, 96, 255);
     color: white;
   }
   #warm{
-    background-color: #ff0000;
+    background-color: #f75454;
     color:white;
   }
   #cold{
-    background-color: #0000ff;
+    background-color: #3b3bff;
     color:white;
   }
   #occulus{
-    background-color: rgb(214, 53, 214);
+    background-color: rgb(255, 96, 255);
     color:white;
   }
   

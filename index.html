@@ -1,20 +1,23 @@
 <!DOCTYPE html>
 <head>
     <link rel="stylesheet" href="./static/css/design.css">
+    <title> 前線解析ツール</title>
     
 </head>
 <body>
+    <h1>前線解析ツール</h1>
     <div class="canvas-container">
         <canvas id="imageCanvas" class="mycanvas" width="652" height="502" style="box-sizing: border-box;"></canvas>
         <canvas id="frontlinecanvas" class="mycanvas" width="652" height="502" style="box-sizing: border-box;"></canvas>
     </div>
+    chose front type:
     <div class="option">
         <div class="color">
-            前線種:
-            <a href="#blue" id="cold" class="front_type">寒冷前線</a>
-            <a href="#red" id="warm" class="front_type">温暖前線</a>
-            <a href="#purple" id="occulus" class="front_type">閉塞前線</a>
-            <a href="#purple" id="stable" class="front_type">停滞前線</a>
+            
+            <a href="#coldfront" id="cold" class="front_type">Cold</a>
+            <a href="#warmfront" id="warm" class="front_type">Warm</a>
+            <a href="#occulusfront" id="occulus" class="front_type">Occulus</a>
+            <a href="#stationaryfront" id="stable" class="front_type">Stationary</a>
         </div>
     </div>
     <input type="button" value="clear" id='clear-canvas'>
