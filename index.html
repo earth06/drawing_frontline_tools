@@ -6,10 +6,67 @@
 </head>
 <body>
     <h1>前線解析ツール</h1>
-    <div class="canvas-container">
-        <canvas id="imageCanvas" class="mycanvas" width="652" height="502" style="box-sizing: border-box;"></canvas>
-        <canvas id="frontlinecanvas" class="mycanvas" width="652" height="502" style="box-sizing: border-box;"></canvas>
-    </div>
+    <ul>
+        <div class="tools">
+            <div class="canvas-container">
+                <canvas id="imageCanvas" class="mycanvas" width="652" height="542" style="box-sizing: border-box;"></canvas>
+                <canvas id="frontlinecanvas" class="mycanvas" width="652" height="542" style="box-sizing: border-box;"></canvas>
+            </div>
+            <div class="selector">
+                <select id="year" name="year">
+                    <option value="2021" selected>2021</option>
+                </select>
+                <select id="month" name="month">
+                    <option value="01" selected>1月</option>
+                    <option value="02">2月</option>
+                    <option value="03">3月</option>
+                    <option value="04">4月</option>
+                    <option value="05">5月</option>
+                    <option value="06">6月</option>
+                    <option value="07">7月</option>
+                    <option value="08">8月</option>
+                    <option value="09">9月</option>
+                    <option value="10">10月</option>
+                    <option value="11">11月</option>
+                    <option value="12">12月</option>
+                  </select>
+                  <select id="day" name="day">
+                    <option value="01">1日</option>
+                    <option value="02" selected>2日</option>
+                    <option value="03">3日</option>
+                    <option value="04">4日</option>
+                    <option value="05">5日</option>
+                    <option value="06">6日</option>
+                    <option value="07">7日</option>
+                    <option value="08">8日</option>
+                    <option value="09">9日</option>
+                    <option value="10">10日</option>
+                    <!-- ここから必要な範囲を追加することができます -->
+                  </select>
+                  <select id="timestep">
+                        <option value="FD0000" selected>FD0000</option>
+                        <option value="FD0012">FD0012</option>
+                        <option value="FD0100">FD0100</option>
+                        <option value="FD0112">FD0112</option>
+                        <option value="FD0200">FD0200</option>
+                  </select>
+                  <select id="maptype">
+                        <option value="surface">surface</option>
+                        <option value="theta_850hPa" selected>850hPa風相当温位図</option>
+                        <option value="T_850hPa_W_700hPa">850hPa気温700hPa上昇流図</option>
+                        <option value="vo_500hPa">500hPa渦度図</option>
+                        <option value="T_500hPa_dew_700hPa">500hPa気温700hPa湿数図</option>
+                        <option value="map_300hPa">300hPa高層天気図</option>
+                        <option value="map_500hPa">500hPa高層天気図</option>
+                  </select>
+                  <input type="button", value="表示" id="switch-map">
+
+
+            </div>
+        </div>
+
+
+    </ul>
     chose front type:
     <div class="option">
         <div class="color">

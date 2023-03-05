@@ -1,37 +1,45 @@
 .option{
     width: 500px;
   }
-  .front_type {
-    display: inline-block;
-    width: 100px;
-    height: 30px;
-    text-align: center;
-    font-weight: bold;
-    margin: 0 auto;
-    border: solid 3px grey;
-  }
+.front_type {
+  display: inline-block;
+  width: 100px;
+  height: 30px;
+  text-align: center;
+  font-weight: bold;
+  margin: 0 auto;
+  border: solid 3px grey;
+}
 
-  .canvas-container{
-    position: relative;
-    padding: 0;
-    box-sizing: content-box;
-    width: 600px;
-  }
-  .canvas-container:before{
-    content:"";
-    display: block;
-    padding-top: 0;
-  }
+.canvas-container{
+  position: relative;
+  padding: 0;
+  box-sizing: content-box;
+  width: 600px;
+  flex-basis: 720px;
+}
+.canvas-container:before{
+  content:"";
+  display: block;
+  padding-top: 0;
+}
 
-  .mycanvas{
-    position: absolute;
-    left:0;
-    top:0;
-    border:0;
-    border: solid 1px black;
+.mycanvas{
+  position: absolute;
+  left:0;
+  top:0;
+  border:0;
+  border: solid 1px black;
+}
 
+.tools{
+  display: flex;
+  width:1240px
+}
+.selector{
+  flex-basis: 284px;
+}
 
-  }
 
   #stable{
     background-color: rgb(255, 96, 255);
@@ -48,5 +56,9 @@
   #occulus{
     background-color: rgb(255, 96, 255);
     color:white;
+  }
+
+  ul {
+    display: flex;
   }
   

@@ -10,6 +10,15 @@ wmap.onload = () => {
   imgctx.drawImage(wmap,0,0); //先に画像を読み込まないとダメ
 };
 
+var maptag2name={
+  surface:"surface",
+  theta_850hPa:"850hPa_wind_equ_potential_temperature",
+  T_850hPa_W_700hPa:"850hPa_T_wind_700hPa_omega",
+  vo_500hPa:"500hPa_vo",
+  T_500hPa_dew_700hPa:"500hPa_T_700hPa_dew_point_depression",
+  map_300hPa:"300hPa",
+  map_500hPa:"500hPa"
+}
 
 fabric.Object.prototype.objectCaching = true;
 var canvas = new fabric.Canvas('frontlinecanvas', {
@@ -53,6 +62,22 @@ var clearEl = document.getElementById('clear-canvas');//idで取得
 clearEl.onclick=function(){
   console.log("clear canvas");
   canvas.clear();}
+
+var switchmapEl=document.getElementById("switch-map");
+switchmapEl.onclick=function(){
+  var yyyy=document.getElementById("year").value;
+  var mm=document.getElementById("month").value;
+  var dd=document.getElementById("day").value;
+  var fdddhh=document.getElementById("timestep").value;
+  var maptag=document.getElementById("maptype").value;
+  var timestamp=yyyy+mm+dd+"000000_" + fdddhh;
+  var mapname=maptag2name[maptag];
+  var filename=mapname+"_"+timestamp+".jpg"
+  wmap.src="./static/images/"+yyyy+"/"+mm+"/"+filename;
+  wmap.onload = () => {
+    imgctx.drawImage(wmap,0,0); //先に画像を読み込まないとダメ
+  }; 
+}
 
 //ダウンロード
 var downloadEl =document.getElementById("download_btn");
