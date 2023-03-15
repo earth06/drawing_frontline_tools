@@ -15,7 +15,7 @@
   position: relative;
   padding: 0;
   box-sizing: content-box;
-  width: 600px;
+  width: 660px;
   flex-basis: 720px;
 }
 .canvas-container:before{
