@@ -9,6 +9,11 @@ wmap.src="./static/images/2021/01/850hPa_wind_equ_potential_temperature_20210102
 wmap.onload = () => {
   imgctx.drawImage(wmap,0,0); //先に画像を読み込まないとダメ
 };
+//redo/undo用のcanvasの要素を格納する配列
+const undo_history=[];
+const redo_history=[];
+//undo/redoで描画処理を実行させない
+let lockHistory=false;
 
 var maptag2name={
   surface:"surface",
@@ -27,7 +32,34 @@ freeDrawingBrush: new fabric.PencilBrush({ decimate: 8 })
 });
 var current_fronttype="cold";
 var linecolor="blue";
+undo_history.push(JSON.stringify(canvas))
 
+function undo() {
+  if (undo_history.length > 0) {
+    lockHistory = true;
+    if (undo_history.length > 1) redo_history.push(undo_history.pop()); //最初の白紙はredoに入れない
+    const content = undo_history[undo_history.length - 1];
+    canvas.loadFromJSON(content, function () {
+      canvas.renderAll();
+      lockHistory = false;
+    });
+  }
+}
+
+function redo() {
+  if (redo_history.length > 0) {
+    lockHistory = true;
+    const content = redo_history.pop();
+    undo_history.push(content);
+    canvas.loadFromJSON(content, function () {
+      canvas.renderAll();
+      lockHistory = false;
+    });
+  }
+}
+
+
+//前線の色を変更する
 document.getElementById("cold").addEventListener(
   "click",function(){
     linecolor="blue";
@@ -58,6 +90,9 @@ document.getElementById("stable").addEventListener(
     current_fronttype="stable";
   }
 )
+
+document.getElementById("undo-button").addEventListener("click",undo);
+document.getElementById("redo-button").addEventListener("click",redo)
 var clearEl = document.getElementById('clear-canvas');//idで取得
 clearEl.onclick=function(){
   console.log("clear canvas");
@@ -105,6 +140,7 @@ downloadEl.onclick=async function() {
   document.body.removeChild(dlink);
 }
 
+//前線描画パート
 canvas.on('before:path:created', function(opt) {
   var path = opt.path;
   var patharr= path.path;
@@ -122,11 +158,14 @@ canvas.on('before:path:created', function(opt) {
   } else if (current_fronttype=="occulus"){
     drawOccludedFront(patharr,canvas);
   }
-
-  
 });
 
 canvas.on('path:created', function(opt) {
   canvas.remove(opt.path);
-})
+  if (lockHistory) return;
+  undo_history.push(JSON.stringify(canvas))
+});
+
+
+
 
